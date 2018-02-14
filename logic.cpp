@@ -32,9 +32,6 @@ int getRandNum(std::vector<int>& randVector)
 	while (isDupclication(randVector, randNum)) {
 		// 중복이면 랜덤 다시 구한다
 		randNum = rand() % 9 + 1;
-#if _DEBUG
-		g_debug_int++;
-#endif
 	}
 
 	return randNum;
@@ -57,23 +54,30 @@ bool inputVector(std::vector<int>& inputVector, int randNum)
 
 bool InputUserNumProc(std::vector<int>& inputVector)
 {
-	// 입력받고
-	std::wcout << STR_INPUT;
-
-	int localUserNum = -1;
-	std::wcin >> localUserNum;
+	int localUserNum = getUserInput();
 
 	// 입력받은 숫자 3개로 분리
 	numToVector(inputVector, localUserNum);
 
 	while (!isVaild(inputVector, localUserNum)) {
 		// 검사해서 아니면 다시 입력받고 분리
-		std::wcout << STR_INPUT;
-		std::wcin >> localUserNum;
+		std::wcout << STR_INCORRECT_INPUT;
+		localUserNum = getUserInput();
 		numToVector(inputVector, localUserNum);
 	}
 
 	return true;
+}
+
+int getUserInput(void)
+{
+	int localUserNum = -1;
+
+	// 입력받고
+	std::wcout << STR_INPUT;
+	std::wcin >> localUserNum;
+
+	return localUserNum;
 }
 
 bool isVaild(std::vector<int>& inputVector, int inputNum)
@@ -118,7 +122,7 @@ int valueInVector(std::vector<int>& inputVector, int idx, int value)
 	return -1;
 }
 
-int valueInArrEx(std::vector<int>& inputVector, int idx, int value)
+int valueInVectorEx(std::vector<int>& inputVector, int idx, int value)
 {
 	for (int i = 0; i < NUM_BALLS; i++) {
 		if (i == idx)
@@ -150,7 +154,7 @@ int CheckBall(std::vector<int>& randVector, std::vector<int>& inputVector)
 
 	// 같은 숫자지만 다른 위치면 볼
 	for (int i = 0; i < NUM_BALLS; i++) {
-		if (valueInArrEx(randVector, i, inputVector[i]) != -1) {
+		if (valueInVectorEx(randVector, i, inputVector[i]) != -1) {
 			localBall++;
 		}
 	}

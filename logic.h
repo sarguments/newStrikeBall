@@ -1,11 +1,8 @@
 #pragma once
 
-#if _DEBUG
-extern int g_debug_int;
-#endif
-
 extern const int NUM_BALLS;
 extern const WCHAR* STR_INPUT;
+extern const WCHAR* STR_INCORRECT_INPUT;
 extern const WCHAR* STR_RESULT;
 extern const WCHAR* STR_NOTHING;
 extern const WCHAR* STR_END;
@@ -25,6 +22,7 @@ bool inputVector(std::vector<int>& param, int randNum);
 
 // 숫자 세자리 입력받는다
 bool InputUserNumProc(std::vector<int>& inputVector);
+int getUserInput(void);
 
 // TODO : 유효성 검사
 bool isVaild(std::vector<int>& inputVector, int inputNum);
@@ -36,7 +34,7 @@ bool numToVector(std::vector<int>& inputVector, int inputParam);
 int valueInVector(std::vector<int>& inputVector, int idx, int value);
 
 // 배열의 특정 인덱스를 <제외>하고 어떠한 값이 있는지
-int valueInArrEx(std::vector<int>& inputVector, int idx, int value);
+int valueInVectorEx(std::vector<int>& inputVector, int idx, int value);
 
 // 랜덤숫자와 입력받은 숫자 비교
 // 같은자리 같은 숫자면 스트라이크
